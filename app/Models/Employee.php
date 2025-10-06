@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -63,11 +64,11 @@ class Employee extends BaseModel {
         return $validator->validate();
     }
 
-    public static function view(int $id): BaseModel {
+    public static function view(int $id): ?Model {
         return self::filter(['id' => $id])->get()->first();
     }
 
-    public static function list(array $parameters = []): \Illuminate\Support\Collection {
+    public static function list(array $parameters = []): Collection {
         return self::filter($parameters)->get();
     }
 

@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\ValidationException;
 
 class CompanyRepository extends BaseRepository {
@@ -19,7 +20,7 @@ class CompanyRepository extends BaseRepository {
         return $this->filter()->get();
     }
 
-    public function find(int $id): BaseModel {
+    public function find(int $id): ?Model {
         return Company::view($id);
     }
 

@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -66,7 +67,7 @@ class Company extends BaseModel {
         return $validator->validate();
     }
 
-    public static function view(int $id): BaseModel {
+    public static function view(int $id): ?Model {
         return self::filter(['id' => $id])->get()->first();
     }
 

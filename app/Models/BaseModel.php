@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Helpers\Formatters;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 
 abstract class BaseModel extends Model {
     protected array $normalizedFields = [];
@@ -14,7 +14,7 @@ abstract class BaseModel extends Model {
 
     public abstract static function validate(array $parameters): array;
 
-    public abstract static function view(int $id): self;
+    public abstract static function view(int $id): ?Model;
 
     public abstract static function list(array $parameters = []): Collection;
 

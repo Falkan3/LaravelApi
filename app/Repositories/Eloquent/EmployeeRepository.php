@@ -7,6 +7,7 @@ use App\Models\Employee;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\ValidationException;
 
 class EmployeeRepository extends BaseRepository {
@@ -19,7 +20,7 @@ class EmployeeRepository extends BaseRepository {
         return Employee::list($parameters);
     }
 
-    public function find(int $id): BaseModel {
+    public function find(int $id): ?Model {
         return Employee::view($id);
     }
 
@@ -43,6 +44,9 @@ class EmployeeRepository extends BaseRepository {
     }
 
     public function destroy(int $id): bool {
+        if ($this->find($id) === null) {
+            return false;
+        }
         return Employee::destroy($id) !== null;
     }
 

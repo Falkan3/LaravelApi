@@ -6,6 +6,7 @@ use App\Helpers\Formatters;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -14,7 +15,7 @@ abstract class BaseRepository {
 
     public abstract function filter(array $filters): Builder;
 
-    public abstract function find(int $id): BaseModel;
+    public abstract function find(int $id): ?Model;
 
     public abstract function create(array $parameters): BaseModel;
 
