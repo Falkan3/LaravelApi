@@ -36,7 +36,7 @@ class ViewCompany extends Command {
     public function handle(): void {
         $id = $this->argument('id');
 
-        $company = $this->companyService->find(['id' => $id]);
+        $company = $this->companyService->find($id);
 
         if ($company === null) {
             $this->handleError(new ModelNotFoundException("Company [$id] doesn't exist.", 404));
@@ -50,6 +50,6 @@ class ViewCompany extends Command {
     }
 
     public function handleError(Exception $e): void {
-        $this->error('Error while creating a new company: ' . $e->getMessage());
+        $this->error('Error while viewing company: ' . $e->getMessage());
     }
 }
