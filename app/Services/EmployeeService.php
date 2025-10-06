@@ -35,19 +35,20 @@ class EmployeeService extends BaseService {
         return $this->employeeRepository->create($parameters);
     }
 
-    public function store(BaseModel $model) {
-
+    public function store(BaseModel $model): bool {
+        return $this->employeeRepository->store($model);
     }
 
-    public function update(BaseModel $model, array $parameters) {
-
+    public function update(BaseModel $model, array $parameters): bool {
+        return $this->employeeRepository->update($model, $parameters);
     }
 
-    public function destroy(int $id) {
-
+    public function destroy(int $id): bool {
+        return $this->employeeRepository->destroy($id);
     }
 
     public function transform(BaseModel $model) {
-
+        // todo: call transformer
+        // return (new EmployeeTransformer)->transform($model);
     }
 }

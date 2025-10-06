@@ -39,15 +39,16 @@ class CompanyService extends BaseService {
         return $this->companyRepository->store($model);
     }
 
-    public function update(BaseModel $model, array $parameters) {
-
+    public function update(BaseModel $model, array $parameters): bool {
+        return $this->companyRepository->update($model, $parameters);
     }
 
-    public function destroy(int $id) {
-
+    public function destroy(int $id): bool {
+        return $this->companyRepository->destroy($id);
     }
 
     public function transform(BaseModel $model) {
-
+        // todo: call transformer
+        // return (new CompanyTransformer)->transform($model);
     }
 }
