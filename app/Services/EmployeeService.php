@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\BaseModel;
 use App\Models\Employee;
 use App\Repositories\Eloquent\EmployeeRepository;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\ValidationException;
 
@@ -16,14 +17,14 @@ class EmployeeService extends BaseService {
     }
 
     public function get(array $parameters): Collection {
-        return $this->filter($parameters);
+        return $this->employeeRepository->get($parameters);
     }
 
-    public function find(array $parameters): ?BaseModel {
-        return $this->get($parameters)->first();
+    public function find(int $id): ?BaseModel {
+        return $this->employeeRepository->find($id);
     }
 
-    public function filter(array $parameters = []): Collection {
+    public function filter(array $parameters = []): Builder {
         return $this->employeeRepository->filter($parameters);
     }
 

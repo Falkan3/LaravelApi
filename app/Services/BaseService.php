@@ -7,8 +7,8 @@ use App\Models\BaseModel;
 abstract class BaseService {
     public abstract function get(array $parameters);
 
-    public function find(array $parameters): ?BaseModel {
-        return $this->get($parameters)->first();
+    public function find(int $id): ?BaseModel {
+        return $this->get(['id' => $id])->first();
     }
 
     public abstract function create(array $parameters);
