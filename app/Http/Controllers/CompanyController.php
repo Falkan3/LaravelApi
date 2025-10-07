@@ -217,11 +217,10 @@ class CompanyController extends Controller {
 
             // 4. Success response (200 OK or 201 Created if resource was truly created, 204 No Content often used for relationship modifications)
             return response()->json([
-                'message'     => "Successfully unlinked employee [{$employeeId}] to company [{$companyId}].",
+                'message'     => "Successfully unlinked employee [{$employeeId}] from company [{$companyId}].",
                 'company_id'  => $companyId,
                 'employee_id' => $employeeId,
             ], Response::HTTP_NO_CONTENT);
-
         } catch (ModelNotFoundException $e) {
             // Handle 404
             return response()->json(['message' => $e->getMessage()], Response::HTTP_NOT_FOUND);
