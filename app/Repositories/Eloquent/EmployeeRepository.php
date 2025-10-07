@@ -20,10 +20,6 @@ class EmployeeRepository extends BaseRepository {
         return Employee::list($parameters);
     }
 
-    public function find(int $id): ?Model {
-        return Employee::view($id);
-    }
-
     public function filter(array $parameters = []): Builder {
         return Employee::filter($parameters);
     }
@@ -39,8 +35,8 @@ class EmployeeRepository extends BaseRepository {
         return $model->store();
     }
 
-    public function update(BaseModel $model, array $parameters): bool {
-        return $model->update($parameters);
+    public function update(BaseModel $model, array $parameters): Employee {
+        return $model->edit($parameters);
     }
 
     public function destroy(int $id): bool {
@@ -48,6 +44,10 @@ class EmployeeRepository extends BaseRepository {
             return false;
         }
         return Employee::destroy($id) !== null;
+    }
+
+    public function find(int $id): ?Model {
+        return Employee::view($id);
     }
 
     public function transform(BaseModel $model): array {

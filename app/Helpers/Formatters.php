@@ -205,10 +205,6 @@ class Formatters {
         return strtolower(preg_replace('/(?<!^)[a-z][A-Z][0-9]/', "$divider$0", $input));                          // make lowercase and add underscores
     }
 
-    public static function trim_string(string $input): string {
-        return preg_replace('/\s+/', ' ', trim($input));
-    }
-
     public static function clean_string(string $text): string {
         $utf8 = [
             '/[áàâãªäåą]/u' => 'a',
@@ -238,6 +234,10 @@ class Formatters {
             '/ /'           => ' ', // non-breaking space (equiv. to 0x160)
         ];
         return preg_replace(array_keys($utf8), array_values($utf8), $text);
+    }
+
+    public static function trim_string(string $input): string {
+        return preg_replace('/\s+/', ' ', trim($input));
     }
 
     public static function case_to_camel_case(string $input, string $divider = '_', bool $capitalizeFirstCharacter = false): string {

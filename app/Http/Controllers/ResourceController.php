@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-class ResourceController extends Controller
-{
+class ResourceController extends Controller {
     //
 }
