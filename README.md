@@ -18,9 +18,14 @@ See `commands` folder to find actions that can be performed.
 
 ### List of commands
 
-- general
-  - drop all data: `api:flush`
 - companies
   - create a company: `api:companies:create {name} {tax_id} {country_code} {city} {address} {post_code}`
+  - update a company: `api:companies:create {id} {--name} {--tax_id} {--country_code} {--city} {--address} {--post_code}`
+  - view a company: `api:companies:view {id}`
+  - destroy a company: `api:companies:destroy {id}`
+  - manage company-employee link: `api:company:manageEmployees {company_id} {employee_id} {action=link|unlink}`
 - employees
-  - create an employee: `api:companies:create {first_name} {last_name} {email} {phone_number*}`
+  - create an employee: `api:employees:create {first_name} {last_name} {email} {phone_number*}`
+  - update an employee: `api:employees:create {--first_name} {--last_name} {--email} {--phone_number*}`
+  - view an employee: `api:employees:view {id}`
+  - destroy an employee: `api:employees:destroy {id}`
