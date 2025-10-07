@@ -58,7 +58,7 @@ class CompanyEmployee extends BaseModel {
         $this->updateRules = self::getRules(true);
     }
 
-    private static function getRules(bool $update = false): array {
+    public static function getRules(bool $update = false): array {
         if ($update === false) {
             return [
                 'company_id'  => ['required', 'int'],
