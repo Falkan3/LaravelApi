@@ -26,6 +26,11 @@ return new class extends Migration {
                 ->on('employees')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
+            $table->index('company_id');
+            $table->index('employee_id');
+            $table->index(['company_id', 'employee_id']);
+            $table->unique(['company_id', 'employee_id']);
         });
     }
 
