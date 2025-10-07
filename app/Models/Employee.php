@@ -71,7 +71,7 @@ class Employee extends BaseModel {
         $this->updateRules = self::getRules(true);
     }
 
-    private static function getRules(bool $update = false): array {
+    public static function getRules(bool $update = false): array {
         if ($update === false) {
             return [
                 'first_name'   => ['required', 'string', 'max:100'],
