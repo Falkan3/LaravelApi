@@ -25,7 +25,7 @@ class CompanyController extends Controller {
      */
     public function __construct(CompanyService $companyService, EmployeeService $employeeService, CompanyEmployeeService $companyEmployeeService) {
         $this->companyService = $companyService;
-        $this->$employeeService = $employeeService;
+        $this->employeeService = $employeeService;
         $this->companyEmployeeService = $companyEmployeeService;
     }
 
