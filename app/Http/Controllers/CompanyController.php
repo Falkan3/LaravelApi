@@ -217,7 +217,7 @@ class CompanyController extends Controller {
 
             // 4. Success response (200 OK or 201 Created if resource was truly created, 204 No Content often used for relationship modifications)
             return response()->json([
-                'message'     => "Successfully linked employee [{$employeeId}] to company [{$companyId}].",
+                'message'     => "Successfully unlinked employee [{$employeeId}] to company [{$companyId}].",
                 'company_id'  => $companyId,
                 'employee_id' => $employeeId,
             ], Response::HTTP_NO_CONTENT);
