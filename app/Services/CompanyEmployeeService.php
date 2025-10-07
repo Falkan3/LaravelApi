@@ -52,7 +52,7 @@ class CompanyEmployeeService extends BaseService {
     }
 
     public function findCompanyEmployee(int $companyId, int $employeeId): ?BaseModel {
-        return $this->companyEmployeeRepository->findEmployee($companyId, $employeeId);
+        return $this->companyEmployeeRepository->findCompanyEmployee($companyId, $employeeId);
     }
 
     /**
