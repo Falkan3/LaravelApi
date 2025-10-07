@@ -39,7 +39,7 @@ class EmployeeService extends BaseService {
         return $this->employeeRepository->store($model);
     }
 
-    public function update(BaseModel $model, array $parameters): bool {
+    public function update(BaseModel $model, array $parameters): Employee {
         return $this->employeeRepository->update($model, $parameters);
     }
 

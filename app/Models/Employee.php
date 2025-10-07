@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class Employee extends BaseModel {
-    protected $hidden = ['id', 'created_at', 'updated_at'];
+    protected $hidden = ['id', 'created_at', 'updated_at', 'pivot'];
     protected $fillable = ['first_name', 'last_name', 'email', 'phone_number'];
 
     protected array $normalizedFields = ['first_name', 'last_name'];
@@ -18,12 +18,48 @@ class Employee extends BaseModel {
     protected ?array $createRules = null;
     protected ?array $updateRules = null;
 
-    public function employees(): HasMany {
-        return $this->hasMany(Employee::class);
-    }
-
     public function __construct(array $attributes = []) {
         parent::__construct($attributes);
+    }
+
+    public static function view(int $id): ?Model {
+        return self::filter(['id' => $id])->get()->first();
+    }
+
+    public static function filter(array $parameters = []): Builder {
+        $query = self::query();
+
+        if (array_key_exists('id', $parameters)) {
+            $query->where('id', '=', $parameters['id']);
+        }
+
+        return $query;
+    }
+
+    public static function list(array $parameters = []): Collection {
+        return self::filter($parameters)->get();
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public static function create(array $parameters): static {
+        $instance = new self;
+
+        $instance->fillRules();
+
+        self::validate($parameters);
+
+        $instance->fill($parameters);
+
+        $phoneNumber = $instance->getAttributeValue('phone_number');
+        if ($phoneNumber !== null) {
+            $instance->setAttribute('phone_number', $instance->normalizeString($phoneNumber));
+        }
+
+        $instance->normalize();
+
+        return $instance;
     }
 
     private function fillRules(): void {
@@ -64,39 +100,8 @@ class Employee extends BaseModel {
         return $validator->validate();
     }
 
-    public static function view(int $id): ?Model {
-        return self::filter(['id' => $id])->get()->first();
-    }
-
-    public static function list(array $parameters = []): Collection {
-        return self::filter($parameters)->get();
-    }
-
-    public static function filter(array $parameters = []): Builder {
-        $query = self::query();
-
-        if (array_key_exists('id', $parameters)) {
-            $query->where('id', '=', $parameters['id']);
-        }
-
-        return $query;
-    }
-
-    /**
-     * @throws ValidationException
-     */
-    public static function create(array $parameters): static {
-        $instance = new self;
-
-        $instance->fillRules();
-
-        self::validate($parameters);
-
-        $instance->fill($parameters);
-
-        $instance->normalize();
-
-        return $instance;
+    public function employees(): BelongsToMany {
+        return $this->belongsToMany(Company::class);
     }
 
     /**
@@ -120,9 +125,14 @@ class Employee extends BaseModel {
     public function edit(array $parameters): BaseModel {
         $this->fillRules();
 
-        $this->validate($parameters);
+        $this->validate($parameters, true);
 
         $this->fill($parameters);
+
+        $phoneNumber = $this->getAttributeValue('phone_number');
+        if ($phoneNumber !== null) {
+            $this->setAttribute('phone_number', $this->normalizeString($phoneNumber));
+        }
 
         $this->normalize();
 

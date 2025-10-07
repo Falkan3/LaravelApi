@@ -37,4 +37,8 @@ abstract class BaseModel extends Model {
             $this->setAttribute($field . '_normalized', Formatters::sanitize_full_text_search($this->getAttributeValue($field)));
         }
     }
+
+    protected function normalizeString(string $string): string {
+        return Formatters::sanitize_full_text_search($string);
+    }
 }

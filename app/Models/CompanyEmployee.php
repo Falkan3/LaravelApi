@@ -14,12 +14,39 @@ class CompanyEmployee extends BaseModel {
     protected $hidden = ['id', 'created_at', 'updated_at'];
     protected $fillable = ['company_id', 'employee_id'];
 
-    public function company(): BelongsTo {
-        return $this->belongsTo(Company::class);
+    public static function view(int $id): ?Model {
+        return self::filter(['id' => $id])->get()->first();
     }
 
-    public function employee(): BelongsTo {
-        return $this->belongsTo(Employee::class);
+    public static function filter(array $parameters = []): Builder {
+        $query = self::query();
+
+        if (array_key_exists('id', $parameters)) {
+            $query->where('id', '=', $parameters['id']);
+        }
+
+        return $query;
+    }
+
+    public static function list(array $parameters = []): Collection {
+        return self::filter($parameters)->get();
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public static function create(array $parameters): static {
+        $instance = new self;
+
+        $instance->fillRules();
+
+        self::validate($parameters);
+
+        $instance->fill($parameters);
+
+        $instance->normalize();
+
+        return $instance;
     }
 
     private function fillRules(): void {
@@ -56,39 +83,12 @@ class CompanyEmployee extends BaseModel {
         return $validator->validate();
     }
 
-    public static function view(int $id): ?Model {
-        return self::filter(['id' => $id])->get()->first();
+    public function company(): BelongsTo {
+        return $this->belongsTo(Company::class);
     }
 
-    public static function list(array $parameters = []): Collection {
-        return self::filter($parameters)->get();
-    }
-
-    public static function filter(array $parameters = []): Builder {
-        $query = self::query();
-
-        if (array_key_exists('id', $parameters)) {
-            $query->where('id', '=', $parameters['id']);
-        }
-
-        return $query;
-    }
-
-    /**
-     * @throws ValidationException
-     */
-    public static function create(array $parameters): static {
-        $instance = new self;
-
-        $instance->fillRules();
-
-        self::validate($parameters);
-
-        $instance->fill($parameters);
-
-        $instance->normalize();
-
-        return $instance;
+    public function employee(): BelongsTo {
+        return $this->belongsTo(Employee::class);
     }
 
     /**
