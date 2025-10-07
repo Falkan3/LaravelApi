@@ -7,21 +7,19 @@ use Exception;
 use Illuminate\Console\Command;
 
 class CreateCompany extends Command {
-    private CompanyService $companyService;
-
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
     protected $signature = 'api:company:create {name} {tax_id} {city} {address} {post_code}';
-
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Command description';
+    private CompanyService $companyService;
 
     public function __construct(CompanyService $companyService) {
         parent::__construct();

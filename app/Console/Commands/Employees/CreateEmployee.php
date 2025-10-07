@@ -7,21 +7,19 @@ use Exception;
 use Illuminate\Console\Command;
 
 class CreateEmployee extends Command {
-    private EmployeeService $employeeService;
-
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
     protected $signature = 'api:employee:create {first_name} {last_name} {email} {phone_number?}';
-
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Command description';
+    private EmployeeService $employeeService;
 
     public function __construct(EmployeeService $employeeService) {
         parent::__construct();

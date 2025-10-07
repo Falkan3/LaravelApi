@@ -8,21 +8,19 @@ use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class DestroyCompany extends Command {
-    private CompanyService $companyService;
-
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
     protected $signature = 'api:company:destroy {id}';
-
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Command description';
+    private CompanyService $companyService;
 
     public function __construct(CompanyService $companyService) {
         parent::__construct();
