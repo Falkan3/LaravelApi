@@ -36,6 +36,10 @@ class Company extends BaseModel {
             $query->where('id', '=', $parameters['id']);
         }
 
+        if (array_key_exists('tax_id', $parameters)) {
+            $query->where('tax_id', '=', $parameters['tax_id']);
+        }
+
         return $query;
     }
 
